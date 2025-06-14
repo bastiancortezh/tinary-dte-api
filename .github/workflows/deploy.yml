@@ -1,0 +1,33 @@
+name: Deploy Catalyst App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar CLI Catalyst
+        run: npm install -g zcatalyst-cli
+
+      - name: Ir a carpeta de funciones
+        run: cd functions/catly/server && npm install
+
+      - name: Deploy funciones
+        run: |
+          cd functions/catly/server
+          catalyst deploy --only functions --project 700000000045014 --verbose
+
+      - name: Deploy cliente (opcional)
+        run: catalyst deploy --only client --project 700000000045014 --verbose
