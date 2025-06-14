@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "targets": [
+      "create_cliente_token"
+    ],
+    "ignore": [],
+    "source": "functions"
+  }
+}
